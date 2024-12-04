@@ -1,61 +1,58 @@
-import React from "react";
+import React, { useState } from "react";
 import Styles from "./Questionnaire.module.css";
 import Container from "../../HOC/Container";
 
+import Step1 from "../../Components/Step1/Step1";
+import Step2 from "../../Components/Step2/Step2";
+import Step3 from "../../Components/Step3/Step3";
+import Step4 from "../../Components/Step4/Step4";
+import Step5 from "../../Components/Step5/Step5";
+
 const Questionnaire = () => {
-  return (
-    <div className={Styles.parent}>
-      <form className={Styles.card + " " + Styles.child}>
-        <form>
-          <div className="form-row">
-            <h3>Información personal</h3>
-            <div className="form-group col-md-6 d-flex flex-column">
-              <label for="inputEmail4">¿Cuántos años tienes?</label>
-              <div>
-                <div className="form-check form-check-inline">
-                  <input className="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" />
-                  <label className="form-check-label" for="inlineCheckbox1">21-60 años</label>
-                </div>
-                <div className="form-check form-check-inline">
-                  <input className="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" />
-                  <label className="form-check-label" for="inlineCheckbox1">Menos de 21 o más de 60 años</label>
-                </div>
-              </div>
-            </div>
-            <div className="form-group col-md-6">
-              <label for="inputPassword4">Estado civil</label>
-              <div>
-                <div className="form-check form-check-inline">
-                  <input className="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" />
-                  <label className="form-check-label" for="inlineCheckbox1">Casado o unión libre</label>
-                </div>
-                <div className="form-check form-check-inline">
-                  <input className="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" />
-                  <label className="form-check-label" for="inlineCheckbox1">Soltero</label>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="form-group">
-            <label for="inputAddress">Número de dependientes</label>
-              <div>
-                <div className="form-check form-check-inline">
-                  <input className="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" />
-                  <label className="form-check-label" for="inlineCheckbox1">Ninguno o 1</label>
-                </div>
-                <div className="form-check form-check-inline">
-                  <input className="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" />
-                  <label className="form-check-label" for="inlineCheckbox1">Más de 1</label>
-                </div>
-              </div>
-          </div>
-          <button type="submit" className="btn btn-primary">
-            Sign in
-          </button>
-        </form>
-      </form>
-    </div>
-  );
+
+  const [step, setStep] = useState(1);
+  const [formData, setFormData] = useState({
+    age: [],
+    maritalStatus: [],
+    dependents: [],
+    jobStatus: [],
+    jobDuration: [],
+    financialInformation: [],
+    monthlyExpenses: [],
+    creditHistory: [],
+    warranties: []
+    // Agrega aquí los demás campos...
+  });
+
+  const nextStep = () => setStep(step + 1);
+  const prevStep = () => setStep(step - 1);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => {
+      const isChecked = prev[name].includes(value);
+      return {
+        ...prev,
+        [name]: isChecked ? prev[name].filter((v) => v !== value) : [...prev[name], value],
+      };
+    });
+  };
+
+  switch (step) {
+    case 1:
+      return <Step1 formData={formData} handleChange={handleChange} nextStep={nextStep} />;
+    case 2:
+      return <Step2 formData={formData} handleChange={handleChange} nextStep={nextStep} prevStep={prevStep} />;
+    case 3:
+      return <Step3 formData={formData} handleChange={handleChange} nextStep={nextStep} prevStep={prevStep} />;
+    case 4:
+      return <Step4 formData={formData} handleChange={handleChange} nextStep={nextStep} prevStep={prevStep} />;
+    case 5:
+      return <Step5 formData={formData} handleChange={handleChange} nextStep={nextStep} prevStep={prevStep} />;
+    // Agrega los demás pasos aquí...
+    default:
+      return <div>Error: Paso no encontrado</div>;
+  }
 };
 
 export default Container(Questionnaire);
