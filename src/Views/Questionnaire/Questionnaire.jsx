@@ -21,7 +21,6 @@ const Questionnaire = () => {
     monthlyExpenses: [],
     creditHistory: [],
     warranties: []
-    // Agrega aquí los demás campos...
   });
 
   const nextStep = () => setStep(step + 1);
@@ -40,18 +39,52 @@ const Questionnaire = () => {
 
   switch (step) {
     case 1:
-      return <Step1 formData={formData} handleChange={handleChange} nextStep={nextStep} />;
+      return (
+        <>
+          <div className={Styles.title + " mt-3"}>
+            <h2>Cuestionario</h2>
+          </div>
+          <Step1 formData={formData} handleChange={handleChange} nextStep={nextStep} />
+        </>
+      );
     case 2:
-      return <Step2 formData={formData} handleChange={handleChange} nextStep={nextStep} prevStep={prevStep} />;
+      return (
+        <>
+          <div className={Styles.title + " mt-3"}>
+            <h2>Cuestionario</h2>
+          </div>
+          <Step2 formData={formData} handleChange={handleChange} nextStep={nextStep} prevStep={prevStep} />
+        </>
+      );
     case 3:
-      return <Step3 formData={formData} handleChange={handleChange} nextStep={nextStep} prevStep={prevStep} />;
+      return (
+        <>
+          <div className={Styles.title + " mt-3"}>
+            <h2>Cuestionario</h2>
+          </div>
+          <Step3 formData={formData} handleChange={handleChange} nextStep={nextStep} prevStep={prevStep} />
+        </>
+      )
     case 4:
-      return <Step4 formData={formData} handleChange={handleChange} nextStep={nextStep} prevStep={prevStep} />;
+      return (
+        <>
+          <div className={Styles.title + " mt-3"}>
+            <h2>Cuestionario</h2>
+          </div>
+          <Step4 formData={formData} handleChange={handleChange} nextStep={nextStep} prevStep={prevStep} />
+        </>
+      )
     case 5:
-      return <Step5 formData={formData} handleChange={handleChange} nextStep={nextStep} prevStep={prevStep} />;
-    // Agrega los demás pasos aquí...
+      return (
+        <>
+          <div className={Styles.title + " mt-3"}>
+            <h2>Cuestionario</h2>
+          </div>
+          <Step5 formData={formData} handleChange={handleChange} nextStep={nextStep} prevStep={prevStep} />
+        </>
+      )
     default:
-      return <div>Error: Paso no encontrado</div>;
+      return <div>Error: Paso no encontrado</div>
   }
 };
 

@@ -9,14 +9,12 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={ <Home /> }></Route>
+        <Route path="/simulador" element={ <Home /> }></Route>
         <Route path="/iniciar-sesion" element={ <Login /> }></Route>
         <Route path="/registro" element={ <SignUp /> }></Route>
         <Route path="/cuestionario" element={ <Questionnaire /> }></Route>
 
         <Route path="/*" element={ <Login /> }></Route>
-
-
       </Routes>
     </BrowserRouter>
   );

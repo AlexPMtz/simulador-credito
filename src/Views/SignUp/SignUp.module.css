@@ -18,3 +18,8 @@
   transform: translate(-50%, 40%);
   width: 50vw;
 }
+
+.title {
+  display: flex;
+  justify-content: center;
+}

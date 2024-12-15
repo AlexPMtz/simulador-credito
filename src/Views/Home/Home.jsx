@@ -17,7 +17,7 @@ const Home = () => {
   return (
     <>
       <div className={Styles.title + " mt-3"}>
-        <h2>Otorgamianto de créditos</h2>
+        <h2>Otorgamiento de créditos</h2>
       </div>
       <div className={Styles.container}>
         <div className={Styles.productCards}>
