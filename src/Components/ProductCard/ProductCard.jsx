@@ -2,7 +2,6 @@ import React, { useRef, useState } from "react";
 import Style from "./ProductCard.module.css";
 
 const ProductCard = ({ title, offer, description, additionalInfo, image }) => {
-
   const [cash, setCash] = useState();
   const [period, setPeriod] = useState();
   const [changed, setChanged] = useState(false);
@@ -30,8 +29,7 @@ const ProductCard = ({ title, offer, description, additionalInfo, image }) => {
             {offer}
           </p>
 
-          {
-            changed ? (
+          {changed ? (
             <div>
               <h3>Detalle de simulación</h3>
               <p>
@@ -46,12 +44,12 @@ const ProductCard = ({ title, offer, description, additionalInfo, image }) => {
               <button
                 className="btn btn-primary mt-3"
                 type="button"
-                onClick={ () => setChanged(!changed) }
+                onClick={() => setChanged(!changed)}
               >
                 Volver a simular
               </button>
             </div>
-            ) : (
+          ) : (
             <div>
               <p>{description}</p>
               <p>{additionalInfo}</p>
@@ -59,7 +57,7 @@ const ProductCard = ({ title, offer, description, additionalInfo, image }) => {
               <div className={Style.inputGroup}>
                 <div className="input-group mt-3">
                   <span className="input-group-text">$</span>
-                  <input type="number" className="form-control" ref={amount}/>
+                  <input type="number" className="form-control" ref={amount} />
                 </div>
                 <div className="form-text mb-3" id="basic-addon4">
                   El monto podría cambiar después de simular las otras ofertas.
@@ -79,7 +77,7 @@ const ProductCard = ({ title, offer, description, additionalInfo, image }) => {
               <button
                 className="btn btn-primary mt-3"
                 type="button"
-                onClick={ saveData }
+                onClick={saveData}
               >
                 Simular
               </button>

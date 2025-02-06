@@ -24,12 +24,7 @@ const Login = () => {
             <label htmlFor="exampleInputEmail1" className="form-label">
               Cuenta clabe
             </label>
-            <input
-              type="number"
-              className="form-control"
-              id="exampleInputEmail1"
-              aria-describedby="emailHelp"
-            />
+            <input type="number" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
             <div id="emailHelp" className="form-text">
               Nunca compartiremos tus datos con nadie más.
             </div>
@@ -38,11 +33,7 @@ const Login = () => {
             <label htmlFor="exampleInputPassword1" className="form-label">
               Contraseña
             </label>
-            <input
-              type="password"
-              className="form-control"
-              id="exampleInputPassword1"
-            />
+            <input type="password" className="form-control" id="exampleInputPassword1" />
           </div>
           <div className={Styles.spaceBtwn}>
             <button type="submit" className="btn btn-primary">
