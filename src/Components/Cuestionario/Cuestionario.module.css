@@ -6,11 +6,11 @@
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
   background-color: whitesmoke;
 }
-  
+
 .parent {
   position: relative;
 }
-  
+
 .child {
   position: absolute;
   left: 50%;
@@ -22,4 +22,8 @@
 .title {
   display: flex;
   justify-content: center;
+}
+
+.marginR {
+  margin-right: 8px;
 }

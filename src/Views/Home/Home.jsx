@@ -4,7 +4,7 @@ import Container from "../../HOC/Container";
 import Styles from "./Home.module.css";
 import hipoteca from '../../images/hipoteca.jpg';
 import prestamo from '../../images/prestamoPersonal.jpg';
-import tdc from '../../images/TDC.png';
+import credito from '../../images/credit-card.jpg';
 
 import { users } from '../../FakeData/mock';
 
@@ -42,7 +42,7 @@ const Home = () => {
             offer="$100,000.00"
             description="Revisa la info de tu línea de crédito de tu tarjeta."
             additionalInfo="Puedes disponer de efectivo las veces que quieras sin comisión.."
-            image={tdc}
+            image={credito}
           />
         </div>
       </div>
