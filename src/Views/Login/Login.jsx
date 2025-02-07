@@ -18,31 +18,29 @@ const Login = () => {
       <div className={Styles.title + " mt-3"}>
         <h2>Iniciar sesión</h2>
       </div>
-      <div className={Styles.parent}>
-        <form className={Styles.card + " " + Styles.child}>
-          <div className="mb-3">
-            <label htmlFor="exampleInputEmail1" className="form-label">
-              Cuenta clabe
-            </label>
-            <input type="number" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
-            <div id="emailHelp" className="form-text">
-              Nunca compartiremos tus datos con nadie más.
-            </div>
+      <form className={Styles.card + " " + Styles.child}>
+        <div className="mb-3">
+          <label htmlFor="exampleInputEmail1" className="form-label">
+            Cuenta clabe
+          </label>
+          <input type="number" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+          <div id="emailHelp" className="form-text">
+            Nunca compartiremos tus datos con nadie más.
           </div>
-          <div className="mb-3">
-            <label htmlFor="exampleInputPassword1" className="form-label">
-              Contraseña
-            </label>
-            <input type="password" className="form-control" id="exampleInputPassword1" />
-          </div>
-          <div className={Styles.spaceBtwn}>
-            <button type="submit" className="btn btn-primary">
-              Acceder
-            </button>
-            <a href="registro">Registrarse</a>
-          </div>
-        </form>
-      </div>
+        </div>
+        <div className="mb-3">
+          <label htmlFor="exampleInputPassword1" className="form-label">
+            Contraseña
+          </label>
+          <input type="password" className="form-control" id="exampleInputPassword1" />
+        </div>
+        <div className={Styles.spaceBtwn}>
+          <button type="submit" className="btn btn-primary">
+            Acceder
+          </button>
+          <a href="registro">Registrarse</a>
+        </div>
+      </form>
     </>
   );
 };

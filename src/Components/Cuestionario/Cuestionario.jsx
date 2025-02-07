@@ -78,7 +78,6 @@ const Cuestionario = () => {
       <div className={Styles.title + " mt-3"}>
         <h2>Cuestionario</h2>
       </div>
-    <div className={Styles.parent}>
       <div className={Styles.card + " " + Styles.child}>
         {
           aprobado ? (
@@ -138,7 +137,6 @@ const Cuestionario = () => {
           )
         }
       </div>
-    </div>
     </>
   );
 };

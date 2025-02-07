@@ -19,7 +19,7 @@ const Home = () => {
       <div className={Styles.title + " mt-3"}>
         <h2>Otorgamiento de créditos</h2>
       </div>
-      <div className={Styles.container}>
+      <div className={Styles.container + " " + Styles.child}>
         <div className={Styles.productCards}>
           <ProductCard
             title="Hipotecario"
