@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
-import { NavLink, redirect } from "react-router-dom";
+import { GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
 
 import Styles from "./Login.module.css";
 import Container from "../../HOC/Container";
@@ -13,6 +14,21 @@ const Login = () => {
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(null)
 
+  const responseGoogle = (response) => {
+    const decoded = jwtDecode(response?.credential);
+    const email = decoded?.email
+console.log("----->", decoded);
+    setLoading(true);
+    if (email === users.correo ) {
+      setTimeout(() => {
+        setLoading(false);
+        window.location.href = "/cuestionario"
+      }, 3000);
+    } else {
+      setError(true)
+    }
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -23,8 +39,6 @@ const Login = () => {
 
     if(data.nCuenta === users.nCuenta && data.contraseña === users.contraseña){
       console.log("LogIn exitosooo!");
-      //spinner 5 segundos
-      //redirigir al cuestionario
       setLoading(true);
       setTimeout(() => {
         setLoading(false);
@@ -43,44 +57,54 @@ const Login = () => {
         <h2>Iniciar sesión</h2>
       </div>
       <form className={Styles.card + " " + Styles.child} onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label htmlFor="exampleInputEmail1" className="form-label">
-            Cuenta clabe
-          </label>
-          <input type="number" ref={nClabeRef} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
-          <div id="emailHelp" className="form-text">
-            Nunca compartiremos tus datos con nadie más.
-          </div>
-        </div>
-        <div className="mb-3">
-          <label htmlFor="exampleInputPassword1" className="form-label" >
-            Contraseña
-          </label>
-          <input type="password" ref={psswdRef} className="form-control" id="exampleInputPassword1" />
-        </div>
-        {
-          error
-          ? (
-              <div className="alert alert-danger" role="alert">Datos incorrectos, intente de nuevo</div>
-            )
-            : null
-        }
-        <div className={Styles.spaceBtwn}>
+        <div>
           {
             loading
               ? (
-                <button className="btn btn-primary" type="button" disabled>
-                  <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                  Accediendo...
-                </button>
+                <div className={Styles.spaceBtwn}>
+                  <strong>Accediendo...</strong>
+                  <div className="spinner-border ml-auto" role="status" aria-hidden="true"></div>
+                </div>
               )
               : (
-                <button type="submit" className="btn btn-primary">
-                  Acceder
-                </button>
+                <div>
+                  <div className="mb-3">
+                    <label htmlFor="exampleInputEmail1" className="form-label">
+                      Cuenta clabe
+                    </label>
+                    <input type="number" ref={nClabeRef} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                    <div id="emailHelp" className="form-text">
+                      Nunca compartiremos tus datos con nadie más.
+                    </div>
+                  </div>
+                  <div className="mb-3">
+                    <label htmlFor="exampleInputPassword1" className="form-label" >
+                      Contraseña
+                    </label>
+                    <input type="password" ref={psswdRef} className="form-control" id="exampleInputPassword1" />
+                  </div>
+                  {
+                    error
+                    ? (
+                        <div className="alert alert-danger" role="alert">Datos incorrectos, intente de nuevo</div>
+                      )
+                      : null
+                  }
+                  <div className={Styles.spaceBtwn}>
+                    <button type="submit" className="btn btn-primary">
+                      Acceder
+                    </button>
+
+                    <GoogleLogin
+                      onSuccess={responseGoogle}
+                      onError={responseGoogle}
+                      >
+                    </GoogleLogin>
+                    <a href="registro">Registrarse</a>
+                  </div>
+                </div>
               )
-          }          
-          <a href="registro">Registrarse</a>
+          }
         </div>
       </form>
     </>

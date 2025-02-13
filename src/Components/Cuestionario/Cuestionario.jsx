@@ -104,7 +104,7 @@ const Cuestionario = () => {
                   {pregunta.opciones.map((opcion, index) => (
                     <label style={{marginRight: 8}} key={index}>
                       <input
-                        style={{marginRight: 8}}
+                        style={{marginRight: 8, marginBottom: 8}}
                         className="form-check-input"
                         type="checkbox"
                         checked={respuestas[pregunta.id] === opcion.puntos}

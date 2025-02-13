@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import Styles from "./SignUp.module.css";
 import Container from "../../HOC/Container";
 
@@ -31,9 +32,12 @@ const signUp = () => {
         <div className="input-group mb-3">
           <input type="password" className="form-control" placeholder="Contraseña" aria-label="password" />
         </div>
-        <button type="submit" className="btn btn-primary">
-          Registrar
-        </button>
+        <div className={Styles.spaceBtwn}>
+          <button type="submit" className="btn btn-primary">
+            Registrar
+          </button>
+          <NavLink to="/">Regresar</NavLink>
+        </div>
       </form>
     </>
   );
