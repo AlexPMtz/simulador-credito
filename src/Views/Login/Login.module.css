@@ -35,7 +35,7 @@
   transform: translate(-50%, -50%);
 }
 
-.spaceBtwn {
+.spaceBtwnButtons {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -44,4 +44,22 @@
 .title {
   display: flex;
   justify-content: center;
+}
+
+.textColorBtn {
+  color: white;
+  text-decoration: none;
+}
+
+@media screen and (max-width: 900px) {
+  .spaceBtwnButtons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .buttonSize {
+    width: 100%;
+    margin-bottom: 10px;
+  }
 }

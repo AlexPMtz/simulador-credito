@@ -28,3 +28,19 @@
 .marginR {
   margin-right: 8px;
 }
+
+.spaceBtwn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.alignEnd {
+  display: flex;
+  justify-content: end;
+}
+
+.textColorBtn {
+  color: white;
+  text-decoration: none;
+}

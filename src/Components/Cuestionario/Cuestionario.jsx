@@ -32,6 +32,7 @@ const Cuestionario = () => {
   const [puntuacionTotal, setPuntuacionTotal] = useState(0);
   const [mensaje, setMensaje] = useState("")
   const [aprobado, setAprobado] = useState(false)
+  const [loading, setLoading] = useState(null);
 
 
   // Obtener las preguntas correspondientes al paso actual
@@ -55,22 +56,27 @@ const Cuestionario = () => {
     const total = Object.values(respuestas).reduce((acc, puntos) => acc + puntos, 0);
     setPuntuacionTotal(total);
 
-    console.log("---->", total)
+    setLoading(true);
 
-		if (total >= 70 && total <= 100) {
-      setAprobado(true)
-      setMensaje("Aprobado: Bajo riesgo, se puede otorgar crédito.");
-    }
-
-    if (total > 50 && total <= 69) {
-      setAprobado(true)
-      setMensaje("Condicional: Riesgo moderado, se recomienda una evaluación adicional.");
-    }
-
-    if (total > 1 && total <= 49) {
-      setAprobado(true)
-      setMensaje("Rechazado: Alto riesgo, se desaconseja el crédito.");
-    }
+    setTimeout(() => {
+      if (total >= 70 && total <= 100) {
+        setAprobado(true);
+        setLoading(false);
+        setMensaje("Aprobado: Bajo riesgo, se puede otorgar crédito.");
+      }
+  
+      if (total > 50 && total <= 69) {
+        setAprobado(true);
+        setLoading(false);
+        setMensaje("Condicional: Riesgo moderado, se recomienda una evaluación adicional.");
+      }
+  
+      if (total > 1 && total <= 49) {
+        setAprobado(true);
+        setLoading(false);
+        setMensaje("Rechazado: Alto riesgo, se desaconseja el crédito.");
+      }
+    }, 5000);
   };
 
   return (
@@ -79,63 +85,84 @@ const Cuestionario = () => {
         <h2>Cuestionario</h2>
       </div>
       <div className={Styles.card + " " + Styles.child}>
-        {
-          aprobado ? (
-            <div>
-              <h2>{mensaje}</h2>
-              {
-                mensaje === "Rechazado: Alto riesgo, se desaconseja el crédito."
-                  ? (
-                      <NavLink to="/iniciar-sesion">Cerrar sesión</NavLink>
-                    )
-                    : (
-                      <NavLink to="/simulador">Ver créditos</NavLink>
-                    )
-              }
-            </div>
-          )
-          : (
-            <div>
-              <h2>Paso {pasoActual + 1} de {grupos.length}</h2>
-
-              {preguntasDelPaso.map((pregunta) => (
-                <div key={pregunta.id}>
-                  <h3>{pregunta.pregunta}</h3>
-                  {pregunta.opciones.map((opcion, index) => (
-                    <label style={{marginRight: 8}} key={index}>
-                      <input
-                        style={{marginRight: 8, marginBottom: 8}}
-                        className="form-check-input"
-                        type="checkbox"
-                        checked={respuestas[pregunta.id] === opcion.puntos}
-                        onChange={() => manejarCambio(pregunta.id, opcion.puntos)}
-                      />
-                      {opcion.texto}
-                    </label>
-                  ))}
-                </div>
-              ))}
-
-              <div>
-                {pasoActual > 0 && (
-                  <button className="btn btn-primary mt-2" style={{marginRight: 8}} onClick={() => setPasoActual(pasoActual - 1)}>
-                    Anterior
-                  </button>
-                )}
-
-                {pasoActual < grupos.length - 1 ? (
-                  <button className="btn btn-primary mt-2" style={{marginRight: 8}} onClick={() => setPasoActual(pasoActual + 1)} disabled={!puedeAvanzar}>
-                    Siguiente
-                  </button>
-                ) : (
-                  <button className="btn btn-primary mt-2" style={{marginRight: 8}} onClick={() => calcularPuntuacion()} disabled={!puedeAvanzar}>
-                    Enviar respuestas
-                  </button>
-                )}
+        <div>
+          {
+            loading
+            ? (
+              <div className={Styles.spaceBtwn}>
+                <strong>Evaluando respuestas...</strong>
+                <div className="spinner-border ml-auto" role="status" aria-hidden="true"></div>
               </div>
-            </div>
-          )
-        }
+            )
+            : (
+              <div>
+                {
+                  aprobado ? (
+                    <div>
+                      <h2>{mensaje}</h2>
+                      {
+                        mensaje === "Rechazado: Alto riesgo, se desaconseja el crédito."
+                          ? (
+                            <button className="btn btn-primary mt-2">
+                              <NavLink className={Styles.textColorBtn} to="/iniciar-sesion">Cerrar sesión</NavLink>
+                            </button>
+                            )
+                            : (
+                              <div className={Styles.alignEnd}>
+                                <button className="btn btn-primary mt-2">
+                                  <NavLink className={Styles.textColorBtn} to="/simulador">Ver créditos</NavLink>
+                                </button>
+                              </div>
+                            )
+                      }
+                    </div>
+                  )
+                  : (
+                    <div>
+                      <h2>Paso {pasoActual + 1} de {grupos.length}</h2>
+
+                      {preguntasDelPaso.map((pregunta) => (
+                        <div key={pregunta.id}>
+                          <h3>{pregunta.pregunta}</h3>
+                          {pregunta.opciones.map((opcion, index) => (
+                            <label style={{marginRight: 8}} key={index}>
+                              <input
+                                style={{marginRight: 8, marginBottom: 8}}
+                                className="form-check-input"
+                                type="checkbox"
+                                checked={respuestas[pregunta.id] === opcion.puntos}
+                                onChange={() => manejarCambio(pregunta.id, opcion.puntos)}
+                              />
+                              {opcion.texto}
+                            </label>
+                          ))}
+                        </div>
+                      ))}
+
+                      <div>
+                        {pasoActual > 0 && (
+                          <button className="btn btn-primary mt-2" style={{marginRight: 8}} onClick={() => setPasoActual(pasoActual - 1)}>
+                            Anterior
+                          </button>
+                        )}
+
+                        {pasoActual < grupos.length - 1 ? (
+                          <button className="btn btn-primary mt-2" style={{marginRight: 8}} onClick={() => setPasoActual(pasoActual + 1)} disabled={!puedeAvanzar}>
+                            Siguiente
+                          </button>
+                        ) : (
+                          <button className="btn btn-primary mt-2" style={{marginRight: 8}} onClick={() => calcularPuntuacion()} disabled={!puedeAvanzar}>
+                            Enviar respuestas
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  )
+                }
+              </div>
+            )
+          }
+        </div>
       </div>
     </>
   );

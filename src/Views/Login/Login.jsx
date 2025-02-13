@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { NavLink } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 
@@ -17,7 +18,6 @@ const Login = () => {
   const responseGoogle = (response) => {
     const decoded = jwtDecode(response?.credential);
     const email = decoded?.email
-console.log("----->", decoded);
     setLoading(true);
     if (email === users.correo ) {
       setTimeout(() => {
@@ -38,17 +38,14 @@ console.log("----->", decoded);
     }
 
     if(data.nCuenta === users.nCuenta && data.contraseña === users.contraseña){
-      console.log("LogIn exitosooo!");
       setLoading(true);
       setTimeout(() => {
         setLoading(false);
         window.location.href = "/cuestionario"
       }, 3000);
     } else {
-      console.log("valio vrga");
       setError(true);
     }
-    console.log("---->", error);
   }
 
   return (
@@ -69,19 +66,13 @@ console.log("----->", decoded);
               : (
                 <div>
                   <div className="mb-3">
-                    <label htmlFor="exampleInputEmail1" className="form-label">
-                      Cuenta clabe
-                    </label>
-                    <input type="number" ref={nClabeRef} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                    <input className="form-control" type="number" ref={nClabeRef} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Cuenta Clabe" />
                     <div id="emailHelp" className="form-text">
                       Nunca compartiremos tus datos con nadie más.
                     </div>
                   </div>
                   <div className="mb-3">
-                    <label htmlFor="exampleInputPassword1" className="form-label" >
-                      Contraseña
-                    </label>
-                    <input type="password" ref={psswdRef} className="form-control" id="exampleInputPassword1" />
+                    <input className="form-control" type="password" ref={psswdRef} placeholder="Contraseña" id="exampleInputPassword1" />
                   </div>
                   {
                     error
@@ -90,17 +81,16 @@ console.log("----->", decoded);
                       )
                       : null
                   }
-                  <div className={Styles.spaceBtwn}>
-                    <button type="submit" className="btn btn-primary">
+                  <div className={Styles.spaceBtwnButtons}>
+                    <button type="submit" className={"btn btn-primary " + Styles.buttonSize}>
                       Acceder
                     </button>
-
-                    <GoogleLogin
-                      onSuccess={responseGoogle}
-                      onError={responseGoogle}
-                      >
-                    </GoogleLogin>
-                    <a href="registro">Registrarse</a>
+                    <div className={Styles.buttonSize}>
+                      <GoogleLogin className={Styles.buttonSize} onSuccess={responseGoogle} onError={responseGoogle}></GoogleLogin>
+                    </div>
+                    <button className={"btn btn-primary " + Styles.buttonSize}>
+                      <NavLink className={Styles.textColorBtn} to="/registro">Registrarse</NavLink>
+                    </button>
                   </div>
                 </div>
               )
